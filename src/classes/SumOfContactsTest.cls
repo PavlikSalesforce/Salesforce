@@ -1,60 +1,53 @@
 @isTest
 private class SumOfContactsTest {
     
-    static testmethod void verifySumOfPrequalifiedAmount() {
+    
+    @testSetup static void setup() {
         
-        Account testAccount = new Account (Name = 'Test');
+        Account testAccount = new Account (Name = 'TestSetup');
         insert testAccount;
         
         List<Contact> contacts = new List<Contact>{};
             
-            
-            for(Integer i = 0; i < 200; i++){
-                Contact c = new Contact(LastName = 'Test Account ' + i, AccountId = testAccount.Id, Amount__c = i * 100);
-                contacts.add(c);
+            for(Integer i = 0; i < 1000; i++){
+                contacts.add(new Contact(
+                    LastName = 'Test Contact ' + i, 
+                    AccountId = testAccount.Id, 
+                    Amount__c = i * 100
+                ));
             }
         
-        test.startTest();
+        insert contacts;       
+    }
+    
+    
+    static testmethod void verifySumOfPrequalifiedAmount() {
         
-        insert contacts; 
-        
-        test.stopTest();
+        Account testAccount = [SELECT Name FROM Account WHERE Name = 'TestSetup'];
         
         List<Account> insertedAccounts = [SELECT SumOfPrequalifiedAmount__c, NumberOfContacts__c  
                                           FROM Account 
                                           WHERE Id = :testAccount.Id];
         
         for(Account account: insertedAccounts){
-            System.assertEquals(200, account.NumberOfContacts__c);
-            System.assertEquals(1990000, account.SumOfPrequalifiedAmount__c);
+            System.assertEquals(1000, account.NumberOfContacts__c);
+            System.assertEquals(49950000, account.SumOfPrequalifiedAmount__c);
         }
     }
     
     
     static testmethod void verifySumOfContactsDelete() {
-        Account testAccount = new Account (Name = 'Test');
-        insert testAccount;
         
-        List<Contact> contacts = new List<Contact>{};
-            
-            
-            for(Integer i = 0; i < 200; i++){
-                Contact c = new Contact(LastName = 'Test Account ' + i, AccountId = testAccount.Id, Amount__c = i * 100);
-                contacts.add(c);
-            }
-        
-        test.startTest();
-        
-        	insert contacts; 
-        
-        test.stopTest();
+        Account testAccount = [SELECT Name FROM Account WHERE Name = 'TestSetup'];
         
         List<Account> insertedAccounts = [SELECT SumOfPrequalifiedAmount__c, NumberOfContacts__c  
                                           FROM Account 
                                           WHERE Id = :testAccount.Id];
         
+        List<Contact> contacts = [SELECT LastName FROM Contact WHERE AccountId =:testAccount.Id];
+        
         for(Account account: insertedAccounts){
-            System.assertEquals(200, account.NumberOfContacts__c);
+            System.assertEquals(1000, account.NumberOfContacts__c);
         }
         
         List<Contact> contactsToDelete = [SELECT LastName FROM Contact WHERE ID In :contacts];
@@ -64,7 +57,7 @@ private class SumOfContactsTest {
             c.LastName = 'TestName';
         }
         
-        	delete contactsToDelete;
+        delete contactsToDelete;
         
         List<Account> insertedAccountsAfterUpdateContact = [SELECT NumberOfContacts__c, SumOfPrequalifiedAmount__c  
                                                             FROM Account 
@@ -79,29 +72,17 @@ private class SumOfContactsTest {
     
     static testmethod void verifySumOfContactsUpdate() {
         
-        Account testAccount = new Account (Name = 'Test');
-        insert testAccount;
+        Account testAccount = [SELECT Name FROM Account WHERE Name = 'TestSetup'];
         
-        List<Contact> contacts = new List<Contact>{};
-            
-            
-            for(Integer i = 0; i < 200; i++){
-                Contact c = new Contact(LastName = 'Test Account ' + i, AccountId = testAccount.Id, Amount__c = i * 100);
-                contacts.add(c);
-            }
+        List<Contact> contacts = [SELECT LastName FROM Contact WHERE AccountId =:testAccount.Id];
         
-        test.startTest();
-        
-        insert contacts; 
-        
-        test.stopTest();
         
         List<Account> insertedAccounts = [SELECT SumOfPrequalifiedAmount__c, NumberOfContacts__c  
                                           FROM Account 
                                           WHERE Id = :testAccount.Id];
         
         for(Account account: insertedAccounts){
-            System.assertEquals(200, account.NumberOfContacts__c);
+            System.assertEquals(1000, account.NumberOfContacts__c);
         }
         
         List<Contact> contactsToUpdate = [SELECT LastName FROM Contact WHERE ID In :contacts];
@@ -117,8 +98,8 @@ private class SumOfContactsTest {
                                                             WHERE Id = :testAccount.Id];
         
         for(Account account: insertedAccountsAfterUpdateContact){
-            System.assertEquals(200, account.NumberOfContacts__c);
-            System.assertEquals(10000, account.SumOfPrequalifiedAmount__c);
+            System.assertEquals(1000, account.NumberOfContacts__c);
+            System.assertEquals(50000, account.SumOfPrequalifiedAmount__c);
         }
         
     }
@@ -126,43 +107,38 @@ private class SumOfContactsTest {
     static testmethod void contactWithEmptyAmountField() {
         
         Account testAccount = new Account (Name = 'Test');
-        insert testAccount;
+        
+            try{
+                insert testAccount;  
+            } catch(DMLException e) {
+                System.debug('An unexpected error occurred ' + e.getMessage());
+            }
         
         List<Contact> contacts = new List<Contact>{};
             
-            for(Integer i = 0; i < 200; i++){
+            for(Integer i = 0; i < 1000; i++){
                 Contact c = new Contact(LastName = 'Test Account ' + i, AccountId = testAccount.Id);
                 contacts.add(c);
             }
         
-        Test.startTest();
-        
-        	insert contacts; 
-        
-        Test.stopTest();
+            Test.startTest();
+            
+                insert contacts; 
+            
+            Test.stopTest();
         
         List<Account> insertedAccounts = [SELECT SumOfPrequalifiedAmount__c, NumberOfContacts__c  
                                           FROM Account 
                                           WHERE Id = :testAccount.Id];
         
-        for(Account account: insertedAccounts){
-            
-            System.assertEquals(200, account.NumberOfContacts__c);
-            System.assertEquals(0, account.SumOfPrequalifiedAmount__c);
-        }
+            for(Account account: insertedAccounts){
+                
+                System.assertEquals(1000, account.NumberOfContacts__c);
+                System.assertEquals(0, account.SumOfPrequalifiedAmount__c);
+            }
         
     }
     
     
-    //insert 100 contacts
-    
-    
-    //update 100 contacts
-    
-    
-    //insert contact with empty Amount__c field
-    
-    
-    //delete 
     
 }
