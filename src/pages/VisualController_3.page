@@ -1,0 +1,282 @@
+<apex:page controller="CustomContactController">
+    
+    <style>
+        .tbl {
+            border:1px solid black; 
+            width:800px; 
+            padding:10px; 
+            margin:10px;        
+            line-height: 22px;
+        }
+        .tbl td {
+            border-bottom:1px solid grey;
+        }
+    </style>
+    
+    <table class="tbl">
+
+        <th> Name </th>
+        <th> Value </th>
+        <th> Accessible </th>
+        <th> Createable </th>
+        <th> Updateable </th>
+        <th> Deletable </th>
+
+
+        <tr>
+            <td>
+                SObject :
+            </td>
+            <td>
+                Custom Contact            
+            </td>
+            <td>
+                {!customContactAccess.isAccessible}
+            </td>
+            <td>
+                {!customContactAccess.isCreateable}
+            </td>
+            <td>
+                {!customContactAccess.isUpdateable}
+            </td>
+            <td>
+                --none--
+            </td>                                    
+        </tr>    
+
+        <tr>
+            <td>
+                Name :
+            </td>
+            <td>
+                 {!ContactRecord.Name}
+            </td>
+            <td>
+                {!contactFieldAccess['Name'].isAccessible}
+            </td>
+            <td>
+                {!contactFieldAccess['Name'].isCreateable}
+            </td>
+            <td>
+                {!contactFieldAccess['Name'].isUpdateable}
+            </td>
+            <td>
+                --none--
+            </td>                                    
+        </tr>        
+        <tr>
+            <td>
+                First Name :
+            </td>
+            <td>
+                 {!ContactRecord.FirstName__c}
+            </td>
+            <td>
+                {!contactFieldAccess['FirstName__c'].isAccessible}
+            </td>
+            <td>
+                {!contactFieldAccess['FirstName__c'].isCreateable}
+            </td>
+            <td>
+                {!contactFieldAccess['FirstName__c'].isUpdateable}
+            </td>                                    
+            <td>
+                --none--
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                Last Name :
+            </td>
+            <td>
+                {!ContactRecord.LastName__c}                
+            </td>
+            <td>
+                {!contactFieldAccess['LastName__c'].isAccessible}
+            </td>  
+            <td>
+                {!contactFieldAccess['LastName__c'].isCreateable}
+            </td>
+            <td>
+                {!contactFieldAccess['LastName__c'].isUpdateable}
+            </td>
+            <td>
+                --none--
+            </td>                         
+        </tr>
+        <tr>
+            <td>
+                Amount (number)
+            </td>
+            <td>
+                {!ContactRecord.Amount__c}
+            </td>
+            <td>
+                {!contactFieldAccess['Amount__c'].isAccessible}            
+            </td>  
+            <td>
+                {!contactFieldAccess['Amount__c'].isCreateable}            
+            </td>
+            <td>
+                {!contactFieldAccess['Amount__c'].isUpdateable}            
+            </td>
+            <td>
+                --none--   
+            </td>                          
+        </tr>    
+        <tr>
+            <td>
+                Amount percent (formula)
+            </td>
+            <td>
+                {!ContactRecord.AmountPercent__c}
+            </td>
+            <td>
+                {!contactFieldAccess['AmountPercent__c'].isAccessible}            
+            </td>  
+            <td>
+                {!contactFieldAccess['AmountPercent__c'].isCreateable}            
+            </td>
+            <td>
+                {!contactFieldAccess['AmountPercent__c'].isUpdateable}            
+            </td>
+            <td>
+                --none--   
+            </td>                          
+        </tr>                    
+        <tr>
+            <td>                
+                Account Id (__c) :
+            </td>
+            <td>
+                {!ContactRecord.CustomAccount__c}
+            </td>
+            <td>
+                {!contactFieldAccess['CustomAccount__c'].isAccessible}
+            </td>              
+            <td>
+                {!contactFieldAccess['CustomAccount__c'].isCreateable}
+            </td>
+            <td>
+                {!contactFieldAccess['CustomAccount__c'].isUpdateable}
+            </td>
+            <td>
+                --none--
+            </td>                      
+        </tr>  
+        <tr>
+            <td>
+                Account City ID (Formula):
+            </td>
+            <td>
+                {!ContactRecord.AccountCityFormula__c}
+            </td>
+            <td>
+                {!contactFieldAccess['AccountCityFormula__c'].isAccessible}            
+            </td>  
+            <td>
+                {!contactFieldAccess['AccountCityFormula__c'].isCreateable}            
+            </td>
+            <td>
+                {!contactFieldAccess['AccountCityFormula__c'].isUpdateable}            
+            </td>
+            <td>
+                --none--   
+            </td>                          
+        </tr>    
+
+    </table>
+
+    <table class="tbl">
+
+        <th> Name </th>
+        <th> Value </th>
+        <th> Accessible </th>
+        <th> Createable </th>
+        <th> Updateable </th>
+        <th> Deletable </th>
+
+        <tr>
+            <td>
+                SObject :
+            </td>
+            <td>
+                Custom Account            
+            </td>
+            <td>
+                {!customAccountAccess.isAccessible}            
+            </td> 
+            <td>
+                {!customAccountAccess.isCreateable}            
+            </td>
+            <td>
+                {!customAccountAccess.isUpdateable}            
+            </td>
+            <td>
+                {!customAccountAccess.isDeletable}            
+            </td>                         
+        </tr> 
+        <tr>
+            <td>
+                Account's Name
+            </td>
+            <td>
+                {!ContactRecord.CustomAccount__r.Name}
+            </td>
+            <td>
+                {!accountFieldAccess['Name'].isAccessible}
+            </td>
+            <td>
+                {!accountFieldAccess['Name'].isCreateable}
+            </td>
+            <td>
+                {!accountFieldAccess['Name'].isUpdateable}
+            </td>              
+            <td>
+                --none--
+            </td>              
+        </tr> 
+        <tr>
+            <td>
+                Account's City :
+            </td>
+            <td>
+                {!ContactRecord.CustomAccount__r.City__c}
+            </td>
+            <td>
+                {!accountFieldAccess['City__c'].isAccessible}
+            </td>              
+            <td>
+                {!accountFieldAccess['City__c'].isCreateable}
+            </td>
+            <td>
+                {!accountFieldAccess['City__c'].isUpdateable}
+            </td>
+            <td>
+                --none--
+            </td>              
+        </tr> 
+         <tr>
+            <td>
+                Account City ID (__r.Id) :
+            </td>
+            <td>
+                {!ContactRecord.CustomAccount__r.Id}
+            </td>
+            <td>
+                {!accountFieldAccess['Id'].isAccessible}            
+            </td>              
+            <td>
+                {!accountFieldAccess['Id'].isCreateable}            
+            </td>
+            <td>
+                {!accountFieldAccess['Id'].isUpdateable}            
+            </td>
+            <td>
+                --none--
+            </td>                           
+        </tr>   
+        
+    </table>
+    
+</apex:page>

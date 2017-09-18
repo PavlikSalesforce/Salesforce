@@ -1,0 +1,53 @@
+<apex:page standardController="Contact" extensions="RESTPageCotroller">
+    <apex:form >
+        
+        <apex:pageBlock >
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!saveRecord}"/>
+                <apex:commandButton value="Search" action="{!searchContacts}" reRender="contact-table" />                
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection >
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="LastName" />
+                    <apex:inputText value="{!searchName}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Contact FirstName</apex:outputLabel>
+                    <apex:inputText id="contactFirstName" value="{!contactFirstName}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Contact LastName</apex:outputLabel>
+                    <apex:inputText id="contactLastName" value="{!contactLastName}"/>
+                </apex:pageBlockSectionItem>    
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockTable value="{! contacts }" var="ct">
+                
+                <apex:column >
+                    <apex:facet name="header">contactFirstName</apex:facet>
+                    {!ct.FirstName}
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">contactLastName</apex:facet>
+                    {!ct.LastName}
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">contact</apex:facet>
+                    {!ct.Email}
+                </apex:column>
+                
+                <apex:column value="{! ct.FirstName }"/>
+                <apex:column value="{! ct.LastName }"/>
+                <apex:column value="{! ct.Email }"/>
+                
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>           
+    </apex:form>
+</apex:page>

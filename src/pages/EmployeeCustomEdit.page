@@ -1,0 +1,36 @@
+<apex:page standardController="Employee__c">
+    <apex:form >
+    
+        <apex:pageBlock id="main_panel" >   
+            
+       <apex:pageBlockSection >
+        
+           <apex:inputField value="{! Employee__c.Name}"/> <br/>
+           <apex:inputField required="true" value="{! Employee__c.Email__c}"/> <br/>
+           <apex:inputCheckbox required="true" value="{! Employee__c.International_Language_Speaker__c}"></apex:inputCheckbox> <br/>
+           <apex:inputField required="true" value="{! Employee__c.Description__c}"/>
+           
+       </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons >
+            
+            	<apex:commandButton action="{! save}" value="save"/>
+               <apex:commandButton action="{! cancel}" value="cancel"/>
+
+            
+            </apex:pageBlockButtons>
+            
+    <!--    <apex:pageBlockTable value="{! employee }" var="emp">
+
+            <apex:column value="{! emp.Name }"/> <br/>
+            <apex:column value="{! emp.Email__c }"/> <br/>
+            <apex:column value="{! emp.International_Language_Speaker__c }"/> <br/>
+            <apex:column value="{! emp.Description__c }"/>
+
+        </apex:pageBlockTable> -->
+            
+        </apex:pageBlock>      
+        
+   </apex:form>
+       
+</apex:page>

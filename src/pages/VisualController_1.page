@@ -1,0 +1,59 @@
+<apex:page controller="WithSharingSample">
+    	
+    <apex:form >
+        
+        <br/>
+
+        <hr/>
+        <b>WITH SHARING METHOD</b>
+        <br/><br/>
+        
+        <apex:repeat value="{!ContactRecords}" var="cont">
+        
+            {!cont.Name}, {!cont.FirstName__c}, {!cont.LastName__c},
+            <br/> {!cont.AccountCityFormula__c}, {!cont.CustomAccount__r.City__c}
+            
+        </apex:repeat>
+        
+        <br/>
+        <hr/>
+        <b> WITH-SHARING -> WITHOUT-SHARING </b>
+        <br/><br/>
+    
+        <apex:repeat value="{!ContactRecordsSharingWithout}" var="cont">
+        
+            {!cont.Name}, {!cont.FirstName__c}, {!cont.LastName__c},
+            <br/> {!cont.AccountCityFormula__c}, {!cont.CustomAccount__r.City__c}
+            
+        </apex:repeat>
+
+        <br/>
+        <hr/>
+        <b> WITH SHARING -> WITHOUT SHARING -> DEFAULT SHARING</b>
+        <br/><br/>
+    
+
+        <apex:repeat value="{!ContactRecordsSharingMulti}" var="cont">
+        
+            {!cont.Name}, {!cont.FirstName__c}, {!cont.LastName__c},
+            <br/> {!cont.AccountCityFormula__c}, {!cont.CustomAccount__r.City__c}
+            
+        </apex:repeat>
+        
+
+        <br/>
+        <hr/>
+        <b>WITH SHARING -> DEFAULT SHARING</b>
+        <br/><br/>
+        
+        
+        <apex:repeat value="{!contactRecordsSharingDefault}" var="cont">
+        
+            {!cont.Name}, {!cont.FirstName__c}, {!cont.LastName__c},
+            <br/> {!cont.AccountCityFormula__c}, {!cont.CustomAccount__r.City__c}
+            
+        </apex:repeat>
+        
+    </apex:form>
+    
+</apex:page>

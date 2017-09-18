@@ -1,0 +1,29 @@
+<apex:page standardController="Account" recordSetVar="accounts" tabstyle="account" sidebar="false">
+    <apex:form >
+        <apex:pageBlock title="My Content" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="My Content Section" columns="2">
+                <apex:inputField value="{!account.name}"/>
+                <apex:inputField value="{!account.site}"/>
+                <apex:inputField value="{!account.type}"/>
+                <apex:inputField value="{!account.accountNumber}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:pageBlock >
+    	<apex:form >
+        	<apex:pageBlockTable value="{!accounts}" var="a">
+            	<apex:column value="{!a.name}"/>
+                <apex:column value="{!a.name}"/>
+        		<apex:column value="{!a.type}" />
+        		<apex:column value="{!a.billingstreet}"/>
+        		<apex:column value="{!a.billingCity}" />
+        		<apex:column value="{!a.billingCountry}" />
+        		<apex:column value="{!a.billingPostalCode}"/>
+        		<apex:column value="{!a.createdById}"/>
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

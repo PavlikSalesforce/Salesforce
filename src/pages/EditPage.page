@@ -1,0 +1,38 @@
+<apex:page controller="CallExtension">
+ 
+    <apex:form >
+    	<apex:pageBlock >
+        	<apex:pageBlockButtons >
+            	<apex:commandButton value="Delete" action="{!deleteProcessSelected}" rerender="table"/>
+                <apex:commandButton value="Save" action="{!saveEmployeeSkill}" rerender="table"/>
+            </apex:pageBlockButtons>
+            <!-- In our table we are displaying the WrapperEmployeeSkills records -->
+            <apex:pageBlockTable value="{!wrapEmpSkill}" var="wES" id="table">
+           
+            	<apex:column >
+                	<!-- This is our selected Boolean property in our wrapper class -->
+                    <apex:inputCheckbox value="{! wES.selected}"/>
+                </apex:column>
+                <!-- This is how we access the employeeSkills values within our WrapperEmployeeSkills container/wrapper -->
+                <apex:column >
+                	  <apex:inputField value="{! wES.empskills.Name}"/>
+                </apex:column>
+                <apex:column >
+                      <apex:inputField value="{! wES.empskills.Grade__c}"/>
+                </apex:column>
+                <apex:column >
+                	  <apex:inputField value="{! wES.empskills.Experience__c}"/>
+                </apex:column>
+                <apex:column >
+                	  <apex:inputField value="{! wES.empskills.Skill_Category__c}"/>
+                </apex:column>
+                <apex:column >
+                	  <apex:inputField value="{! wES.empskills.Project__c}"/>
+                </apex:column>               
+
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    
+    </apex:form>
+  
+</apex:page>
