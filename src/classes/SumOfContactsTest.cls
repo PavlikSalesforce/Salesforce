@@ -130,7 +130,6 @@ private class SumOfContactsTest {
         
         List<Contact> contacts = new List<Contact>{};
             
-            
             for(Integer i = 0; i < 200; i++){
                 Contact c = new Contact(LastName = 'Test Account ' + i, AccountId = testAccount.Id);
                 contacts.add(c);
