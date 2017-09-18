@@ -10,9 +10,10 @@ public class TriggerHelperClass {
         return   accountList.size();      
     }
     
-    public static Set<Id> saveAccountIds(Id accountId) {
+    public static Set<Id> saveAccountIds(Set<Id> accountId) {
         
-        AccountIds.add(accountId);
+        AccountIds.addAll(accountId);
+        System.debug('');
         
         return AccountIds;       
     }
@@ -20,11 +21,16 @@ public class TriggerHelperClass {
     public static Map<Id, Decimal> getSumOfPrequalifiedAmount(Set<Id> AccountIds) {
         Map<Id, Decimal> totalAmountMap = new Map<Id,Decimal>();
         for(Contact contact : [SELECT Id, Amount__c, AccountId FROM Contact WHERE AccountId IN: AccountIds]){
+            
+            if(contact.Amount__c == null) {
+                contact.Amount__c = 0;
+            }
+            
             Decimal TotalAmount = 0;
             if(totalAmountMap.containsKey(contact.AccountId)) {
                 TotalAmount = totalAmountMap.get(contact.AccountId);            
             } 
-            TotalAmount = TotalAmount + Contact.Amount__c;
+            TotalAmount = TotalAmount + contact.Amount__c;
             totalAmountMap.put(contact.AccountId, TotalAmount);           
         }
         return totalAmountMap;
