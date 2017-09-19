@@ -9,7 +9,7 @@ private class SumOfContactsTest {
         
         List<Contact> contacts = new List<Contact>{};
             
-            for(Integer i = 0; i < 1000; i++){
+            for(Integer i = 0; i < 100; i++){
                 contacts.add(new Contact(
                     LastName = 'Test Contact ' + i, 
                     AccountId = testAccount.Id, 
@@ -30,8 +30,8 @@ private class SumOfContactsTest {
                                           WHERE Id = :testAccount.Id];
         
         for(Account account: insertedAccounts){
-            System.assertEquals(1000, account.NumberOfContacts__c);
-            System.assertEquals(49950000, account.SumOfPrequalifiedAmount__c);
+            System.assertEquals(100, account.NumberOfContacts__c);
+            System.assertEquals(495000, account.SumOfPrequalifiedAmount__c);
         }
     }
     
@@ -47,7 +47,7 @@ private class SumOfContactsTest {
         List<Contact> contacts = [SELECT LastName FROM Contact WHERE AccountId =:testAccount.Id];
         
         for(Account account: insertedAccounts){
-            System.assertEquals(1000, account.NumberOfContacts__c);
+            System.assertEquals(100, account.NumberOfContacts__c);
         }
         
         List<Contact> contactsToDelete = [SELECT LastName FROM Contact WHERE ID In :contacts];
@@ -57,15 +57,15 @@ private class SumOfContactsTest {
             c.LastName = 'TestName';
         }
         
-        delete contactsToDelete;
+        	delete contactsToDelete;
         
         List<Account> insertedAccountsAfterUpdateContact = [SELECT NumberOfContacts__c, SumOfPrequalifiedAmount__c  
                                                             FROM Account 
                                                             WHERE Id = :testAccount.Id];
         
         for(Account account: insertedAccountsAfterUpdateContact){
-            System.assertEquals(0, account.NumberOfContacts__c);
-            System.assertEquals(0, account.SumOfPrequalifiedAmount__c);
+            System.assertEquals(null, account.NumberOfContacts__c);
+            System.assertEquals(null, account.SumOfPrequalifiedAmount__c);
         }
         
     }
@@ -82,7 +82,7 @@ private class SumOfContactsTest {
                                           WHERE Id = :testAccount.Id];
         
         for(Account account: insertedAccounts){
-            System.assertEquals(1000, account.NumberOfContacts__c);
+            System.assertEquals(100, account.NumberOfContacts__c);
         }
         
         List<Contact> contactsToUpdate = [SELECT LastName FROM Contact WHERE ID In :contacts];
@@ -98,8 +98,8 @@ private class SumOfContactsTest {
                                                             WHERE Id = :testAccount.Id];
         
         for(Account account: insertedAccountsAfterUpdateContact){
-            System.assertEquals(1000, account.NumberOfContacts__c);
-            System.assertEquals(50000, account.SumOfPrequalifiedAmount__c);
+            System.assertEquals(100, account.NumberOfContacts__c);
+            System.assertEquals(5000, account.SumOfPrequalifiedAmount__c);
         }
         
     }
@@ -116,7 +116,7 @@ private class SumOfContactsTest {
         
         List<Contact> contacts = new List<Contact>{};
             
-            for(Integer i = 0; i < 1000; i++){
+            for(Integer i = 0; i < 100; i++){
                 Contact c = new Contact(LastName = 'Test Account ' + i, AccountId = testAccount.Id);
                 contacts.add(c);
             }
@@ -133,12 +133,10 @@ private class SumOfContactsTest {
         
             for(Account account: insertedAccounts){
                 
-                System.assertEquals(1000, account.NumberOfContacts__c);
+                System.assertEquals(100, account.NumberOfContacts__c);
                 System.assertEquals(0, account.SumOfPrequalifiedAmount__c);
             }
         
     }
-    
-    
     
 }

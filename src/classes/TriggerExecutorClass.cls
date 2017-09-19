@@ -2,9 +2,10 @@ public class TriggerExecutorClass {
     
     public static List<Account> execute (Set<Id> accountId) {
         
-        Set<Id> AccountIds = TriggerHelperClass.saveAccountIds(accountId);
-        Map<Id, Decimal> totalAmountMap = TriggerHelperClass.getSumOfPrequalifiedAmount(AccountIds);
-        List<Account> updateAccounts = TriggerHelperClass.getNumberOfContacts(totalAmountMap);
+        Map<Id, Decimal> prequalifiedAmountMap = TriggerHelperClass.getSumOfPrequalifiedAmount(accountId);
+        Map<Id, Decimal> numberOfContactsMap = TriggerHelperClass.getNumberOfContacts(accountId);
+        List<Account> updateAccounts = TriggerHelperClass.performCalculation(accountId);
+       // TriggerHelperClass.updateAccounts(updateAccounts);
         
         return updateAccounts;
         

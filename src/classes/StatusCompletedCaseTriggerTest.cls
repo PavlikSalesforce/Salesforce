@@ -4,6 +4,7 @@ private class StatusCompletedCaseTriggerTest {
     static testmethod void verifyAContactAdultCheckboxTrue(){
         
         Contact testContact = new Contact(
+           
             LastName = 'Test Contact', 
             Birthdate = Date.ValueOf('1968-09-21'));
         

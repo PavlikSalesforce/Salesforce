@@ -8,7 +8,7 @@ private class More5Cont_CompletedTest {
         
         List<Contact> contacts = new List<Contact>{};
             
-            for(Integer i = 1; i <= 10; i++){
+            for(Integer i = 0; i < 150; i++){
                 Contact c = new Contact(LastName = 'Test Account ' + i, Birthdate = Date.ValueOf('1968-09-21'), AccountId = testAccount.Id);
                 contacts.add(c);
             }
@@ -35,6 +35,7 @@ private class More5Cont_CompletedTest {
         List<Account> insertedAccounts = [SELECT  Status__c 
                                           FROM Account 
                                           WHERE Id = :testAccount.Id];
+        System.debug('insertedAccounts = ' + insertedAccounts);
         
         for(Integer i = 0; i <  insertedAccounts.size(); i++){
             System.assertEquals('Completed', insertedAccounts.get(i).Status__c);
@@ -48,7 +49,7 @@ private class More5Cont_CompletedTest {
         
         List<Contact> contacts = new List<Contact>{};
             
-            for(Integer i = 1; i <= 10; i++){
+            for(Integer i = 0; i < 200; i++){
                 Contact c = new Contact(LastName = 'Test Account ' + i, AccountId = testAccount.Id);
                 contacts.add(c);
             }
@@ -90,7 +91,7 @@ private class More5Cont_CompletedTest {
                 
         List<Contact> contacts = new List<Contact>{};
             
-            for(Integer i = 1; i <= 10; i++){
+            for(Integer i = 0; i < 200; i++){
                 Contact c = new Contact(LastName = 'Test Contact ' + i, Birthdate = Date.ValueOf('1990-09-21'));
                 contacts.add(c);
             }
@@ -123,6 +124,7 @@ private class More5Cont_CompletedTest {
                 ContactId = c.Id,
                 Status = 'Completed',
                 Origin = 'Phone');
+        
 	    insert testCase;
         
         Contact testContact = [SELECT Id, Adult__c FROM Contact WHERE Id = :testCase.ContactId];
